@@ -12,18 +12,9 @@ from sklearn.tree import DecisionTreeClassifier
 model_fname = "model.save"
 MODEL_NAME = "decision_tree_sklearn"
 
-COST_THRESHOLD = float('inf')
 
 
-# class InfCostStopCallback(Callback):
-#     def on_epoch_end(self, epoch, logs={}):
-#         loss_val = logs.get('loss')
-#         if(loss_val == COST_THRESHOLD or tf.math.is_nan(loss_val)):
-#             print("Cost is inf, so stopping training!!")
-#             self.model.stop_training = True
-
-
-class DecisionTree_sklearn(): 
+class Classifier(): 
     
     def __init__(self, min_samples_split = 2, min_samples_leaf = 1, **kwargs) -> None:
         self.min_samples_split = int(min_samples_split)

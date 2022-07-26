@@ -4,7 +4,7 @@ import sys
 
 import algorithm.utils as utils
 import algorithm.preprocessing.pipeline as pipeline
-import algorithm.model.decision_tree as DecisionTree_sklearn
+import algorithm.model.classifier as classifier
 
 
 # get model configuration parameters 
@@ -27,7 +27,7 @@ class ModelServer:
     
     def _get_model(self):
         try: 
-            self.model = DecisionTree_sklearn.load_model(self.model_path)
+            self.model = classifier.load_model(self.model_path)
             return self.model
         except: 
             print(f'No model found to load from {self.model_path}. Did you train the model first?')

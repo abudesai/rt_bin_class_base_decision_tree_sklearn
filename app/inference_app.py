@@ -12,6 +12,7 @@ warnings.filterwarnings('ignore')
 
 import algorithm.utils as utils
 from algorithm.model_server import ModelServer
+from algorithm.model import classifier as model
 
 
 prefix = '/opt/ml_vol/'
@@ -37,7 +38,7 @@ app = flask.Flask(__name__)
 def ping():
     """Determine if the container is working and healthy. """
     status = 200
-    response="I am alive!"
+    response=f"Hello - I am {model.MODEL_NAME} model and I am at your service!"
     return flask.Response(response=response, status=status, mimetype="application/json")
 
 
