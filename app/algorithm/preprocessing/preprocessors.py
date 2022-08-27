@@ -9,7 +9,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 class DropNATransformer(BaseEstimator, TransformerMixin):  
     ''' Scale ratings '''
-    def __init__(self, cols_list): 
+    def __init__(self, cols_list):  
         super().__init__()
         self.cols_list = cols_list
 
@@ -335,15 +335,15 @@ class XYSplitter(BaseEstimator, TransformerMixin):
     def transform(self, data):  
         # data.to_csv("data.csv", index=False); sys.exit()
         if self.target_col in data.columns: 
-            y = data[self.target_col].values
+            y = data[self.target_col]
         else: 
             y = None
         
         not_X_cols = [ self.id_col, self.target_col ] 
         X_cols = [ col for col in data.columns if col not in not_X_cols ]
-        X = data[X_cols].values
+        X = data[X_cols]
         
-        return { 'X': X, 'y': y }
+        return { 'X': X, 'y': y, 'ids': data[self.id_col].values }
     
         
     

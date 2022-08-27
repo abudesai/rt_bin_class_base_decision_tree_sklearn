@@ -114,11 +114,13 @@ def train_and_save_algo():
     # read data config
     data_schema = utils.get_data_schema(data_schema_path)  
     # get trained preprocessor, model, training history 
-    preprocessor, model = model_trainer.get_trained_model(train_data, data_schema, hyper_parameters)            
+    preprocessor, model, history = model_trainer.get_trained_model(train_data, data_schema, hyper_parameters)            
     # Save the processing pipeline   
     pipeline.save_preprocessor(preprocessor, model_artifacts_path)
     # Save the model 
     classifier.save_model(model, model_artifacts_path)
+    # Save training history
+    classifier.save_training_history(history, model_artifacts_path)    
     print("done with training")
 
 
@@ -233,12 +235,12 @@ def run_train_and_test(dataset_name, run_hpt, num_hpt_trials):
 
 if __name__ == "__main__": 
     
-    num_hpt_trials = 30
+    num_hpt_trials = 10
     run_hpt_list = [False, True]
-    run_hpt_list = [True]
+    run_hpt_list = [False]
     
     datasets = ["cancer", "credit_card", "mushroom", "segment", "spam", "telco_churn", "titanic"]
-    # datasets = ["segment"]
+    datasets = ["segment"]
     
     for run_hpt in run_hpt_list:
         all_results = []; local_explanations = []
