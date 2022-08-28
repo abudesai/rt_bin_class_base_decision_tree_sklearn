@@ -114,13 +114,11 @@ def train_and_save_algo():
     # read data config
     data_schema = utils.get_data_schema(data_schema_path)  
     # get trained preprocessor, model, training history 
-    preprocessor, model, history = model_trainer.get_trained_model(train_data, data_schema, hyper_parameters)            
+    preprocessor, model = model_trainer.get_trained_model(train_data, data_schema, hyper_parameters)            
     # Save the processing pipeline   
     pipeline.save_preprocessor(preprocessor, model_artifacts_path)
     # Save the model 
     classifier.save_model(model, model_artifacts_path)
-    # Save training history
-    classifier.save_training_history(history, model_artifacts_path)    
     print("done with training")
 
 
@@ -176,14 +174,15 @@ def score(test_data, predictions):
                "precision": np.round(precision, 4), 
                "recall": np.round(recall, 4), 
                "auc_score": np.round(auc, 4), 
-               }
+               "perc_pred_missing": np.round( 100 * (1 - predictions.shape[0] / test_data.shape[0]), 2)
+        }
     return scores
 
 
 def save_test_outputs(results, run_hpt, dataset_name):    
     df = pd.DataFrame(results) if dataset_name is None else pd.DataFrame([results])        
     df = df[["model", "dataset_name", "run_hpt", "num_hpt_trials", 
-             "accuracy", "f1_score", "precision", "recall", "auc_score",
+             "accuracy", "f1_score", "precision", "recall", "auc_score", "perc_pred_missing",
              "elapsed_time_in_minutes"]]
     print(df)
     file_path_and_name = get_file_path_and_name(run_hpt, dataset_name)
@@ -235,7 +234,7 @@ def run_train_and_test(dataset_name, run_hpt, num_hpt_trials):
 
 if __name__ == "__main__": 
     
-    num_hpt_trials = 10
+    num_hpt_trials = 30
     run_hpt_list = [False, True]
     run_hpt_list = [False]
     

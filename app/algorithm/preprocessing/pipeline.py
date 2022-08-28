@@ -227,7 +227,7 @@ def get_preprocess_pipeline(pp_params, model_cfg):
                     variables=pp_params["num_vars"] 
                 ),    
             )
-        )     
+        )    
         
         # Clip values to +/- 4 std devs
         pipe_steps.append(
@@ -239,12 +239,12 @@ def get_preprocess_pipeline(pp_params, model_cfg):
                     max_val=4.0,    # + 4 std dev    
                 ),    
             )
-        )          
+        )         
     
     # ===============================================================
     # ===== TARGET VARIABLE =====    
     # Label Binarizer - 
-    pipe_steps.append( 
+    pipe_steps.append(
         (
             pp_step_names["LABELBINARIZER"], 
             preprocessors.CustomLabelBinarizer(
