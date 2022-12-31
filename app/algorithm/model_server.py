@@ -49,12 +49,8 @@ class ModelServer:
         preds = model.predict(pred_X)
         # inverse transform the predictions to original scale
         preds = pipeline.get_inverse_transform_on_preds(preprocessor, model_cfg, preds)
-        # get the names for the id and prediction fields
-        id_field_name = self.data_schema["inputDatasets"][
-            "binaryClassificationBaseMainInput"
-        ]["idField"]
-        # return te prediction df with the id and prediction fields
-        preds_df = data[[id_field_name]].copy()
+        # return the prediction df with the id and prediction fields
+        preds_df = data[[self.id_field_name]].copy()
         preds_df["prediction"] = preds
 
         return preds_df
