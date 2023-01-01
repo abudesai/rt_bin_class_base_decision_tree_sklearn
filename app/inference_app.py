@@ -62,9 +62,6 @@ def infer():
 
     # Do the prediction
     try:
-        # Do the prediction
-        print(f"Invoked with {data.shape[0]} records")
-        print(data)
         predictions = model_server.predict_to_json(data)
         return {
             "success": True,
