@@ -108,11 +108,6 @@ def copy_example_files(dataset_name):
         f"{local_datapath}/{dataset_name}/{dataset_name}_test.csv",
         os.path.join(test_data_path, f"{dataset_name}_test.csv"),
     )
-    # hyperparameters
-    shutil.copyfile(
-        "./examples/hyperparameters.json",
-        os.path.join(hyper_param_path, "hyperparameters.json"),
-    )
 
 
 def run_HPT(num_hpt_trials):
@@ -134,15 +129,13 @@ def train_and_save_algo():
     # read data config
     data_schema = utils.get_data_schema(data_schema_path)
     # get trained preprocessor, model, training history
-    preprocessor, model, history = model_trainer.get_trained_model(
+    preprocessor, model = model_trainer.get_trained_model(
         train_data, data_schema, hyper_parameters
     )
     # Save the processing pipeline
     pipeline.save_preprocessor(preprocessor, model_artifacts_path)
     # Save the model
     classifier.save_model(model, model_artifacts_path)
-    # Save training history
-    classifier.save_training_history(history, model_artifacts_path)
     print("done with training")
 
 
@@ -315,7 +308,7 @@ if __name__ == "__main__":
         "telco_churn",
         "titanic",
     ]
-    datasets = ["cancer"]
+    datasets = ["titanic"]
 
     for run_hpt in run_hpt_list:
         all_results = []
