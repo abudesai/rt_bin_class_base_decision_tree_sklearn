@@ -308,7 +308,7 @@ if __name__ == "__main__":
         "telco_churn",
         "titanic",
     ]
-    datasets = ["titanic"]
+    datasets = ["employee_attrition"]
 
     for run_hpt in run_hpt_list:
         all_results = []

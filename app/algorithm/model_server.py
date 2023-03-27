@@ -59,6 +59,7 @@ class ModelServer:
         preds = self._get_predictions(data)
         # get class names (labels)
         class_names = pipeline.get_class_names(self.preprocessor, model_cfg)
+        class_names = [str(c) for c in class_names]
 
         # return the prediction df with the id and class probability fields
         preds_df = data[[self.id_field_name]].copy()
